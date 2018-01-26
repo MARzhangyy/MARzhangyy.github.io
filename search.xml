@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[hexo搭建博客]]></title>
+    <url>%2F2018%2F01%2F26%2Fhexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%2F</url>
+    <content type="text"><![CDATA[hexo搭建博客基本命令添加相关页面打开终端，进入博客根站点目录下，例：添加标签页，输入以下内容： hexo new page tags 生成静态文件 hexo g 本地预览 hexo s 部署到GitHub打开终端，进入public hexo d 但往往hexo d不起作用，我的是这样，所以还是要手动push git config user.name “”git config user.email “”git add *git commit -m “”git remote origin git@github.com:你的GitHub用户名/本地仓库 此时若提示，fatal: remote origin already exists,则 先删除远程Git仓库 git remote rm origin 再添加远程Git仓库 git remote origin git@github.com:你的GitHub用户名/本地仓库 接着执行 git push origin master 当远程库和本地库不同步时，会提示，error：failed to push some refes to ….,则 先pull,将远程库文件同步下来 git pull origin master 再push，执行推送 git push origin master Finish!]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[我的第一篇博客]]></title>
     <url>%2F2018%2F01%2F02%2F%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%2F</url>
     <content type="text"><![CDATA[之后会陆续更新python数据分析有关内容 numpy库 pandas库 深入pandas pandas数据读写 用matplotlib实现数据可视化]]></content>
