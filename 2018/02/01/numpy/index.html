@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="numpy," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="MARzhangyy" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1.numpy中的基本数据类型   名称 描述     bool 用一个字节存储的布尔类型（True或False）   inti 由所在平台决定其大小的整数（一般为int32或int64）   int8 一个字节大小，-128 至 127   int16 整数，-32768 至 32767   int32 整数，-231 至 232-1   int64 整数，-263  至 263 - 1   u">
+<meta name="keywords" content="numpy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="numpy">
+<meta property="og:url" content="http://yoursite.com/2018/02/01/numpy/index.html">
+<meta property="og:site_name" content="MARzhangyy">
+<meta property="og:description" content="1.numpy中的基本数据类型   名称 描述     bool 用一个字节存储的布尔类型（True或False）   inti 由所在平台决定其大小的整数（一般为int32或int64）   int8 一个字节大小，-128 至 127   int16 整数，-32768 至 32767   int32 整数，-231 至 232-1   int64 整数，-263  至 263 - 1   u">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-11T13:26:46.764Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="numpy">
+<meta name="twitter:description" content="1.numpy中的基本数据类型   名称 描述     bool 用一个字节存储的布尔类型（True或False）   inti 由所在平台决定其大小的整数（一般为int32或int64）   int8 一个字节大小，-128 至 127   int16 整数，-32768 至 32767   int32 整数，-231 至 232-1   int64 整数，-263  至 263 - 1   u">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/01/numpy/"/>
+
+
+
+
+
+  <title>numpy | MARzhangyy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MARzhangyy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">2018年是一个需要特别特别努力和幸运的一年</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于作者
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/numpy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhangyanyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MARzhangyy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">numpy</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T18:27:53+08:00">
+                2018-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/numpy/" itemprop="url" rel="index">
+                    <span itemprop="name">numpy</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-numpy中的基本数据类型"><a href="#1-numpy中的基本数据类型" class="headerlink" title="1.numpy中的基本数据类型"></a>1.numpy中的基本数据类型</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bool</td>
+<td>用一个字节存储的布尔类型（True或False）</td>
+</tr>
+<tr>
+<td>inti</td>
+<td>由所在平台决定其大小的整数（一般为int32或int64）</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>一个字节大小，-128 至 127</td>
+</tr>
+<tr>
+<td>int16</td>
+<td>整数，-32768 至 32767</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>整数，-2<sup>31</sup> 至 2<sup>32</sup>-1</td>
+</tr>
+<tr>
+<td>int64</td>
+<td>整数，-2<sup>63</sup>  至 2<sup>63</sup> - 1</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>无符号整数，0 至 255</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>无符号整数，0 至 65535</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>无符号整数，0 至 2<sup>32</sup> - 1</td>
+</tr>
+<tr>
+<td>uint64</td>
+<td>无符号整数，0 至 2<sup>64</sup> - 1</td>
+</tr>
+<tr>
+<td>float16</td>
+<td>半精度浮点数：16位，正负号1位，指数5位，精度10位</td>
+</tr>
+<tr>
+<td>float32</td>
+<td>单精度浮点数：32位，正负号1位，指数8位，精度23位</td>
+</tr>
+<tr>
+<td>float64或float</td>
+<td>双精度浮点数：64位，正负号1位，指数11位，精度52位</td>
+</tr>
+<tr>
+<td>complex64</td>
+<td>复数，分别用两个32位浮点数表示实部和虚部</td>
+</tr>
+<tr>
+<td>complex128或complex</td>
+<td>复数，分别用两个64位浮点数表示实部和虚部</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-用于操作单个数组的常用函数"><a href="#2-用于操作单个数组的常用函数" class="headerlink" title="2.用于操作单个数组的常用函数"></a>2.用于操作单个数组的常用函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sort(x)</td>
+<td>对x进行从小到大排序</td>
+</tr>
+<tr>
+<td>unique(x)</td>
+<td>计算x中的唯一元素，并返回有序结果</td>
+</tr>
+<tr>
+<td>abs、fabs</td>
+<td>计算整数、浮点数或复数的绝对值。对于复数数值，可以使用更快的fabs</td>
+</tr>
+<tr>
+<td>square</td>
+<td>计算各元素的平方</td>
+</tr>
+<tr>
+<td>sqrt</td>
+<td>计算各元素的平方根</td>
+</tr>
+<tr>
+<td>cos、sin、tan</td>
+<td>三角函数</td>
+</tr>
+<tr>
+<td>arccos、arcsin、arctan</td>
+<td>反三角函数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-用于操作两个或多个数组的方法"><a href="#3-用于操作两个或多个数组的方法" class="headerlink" title="3.用于操作两个或多个数组的方法"></a>3.用于操作两个或多个数组的方法</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td>将数组中对应的元素相加</td>
+</tr>
+<tr>
+<td>subtract</td>
+<td>从第一个数组中减去第二个数组中的元素</td>
+</tr>
+<tr>
+<td>multiply</td>
+<td>数组元素相乘</td>
+</tr>
+<tr>
+<td>power</td>
+<td>两个数组A,B，计算A的B次方</td>
+</tr>
+<tr>
+<td>mod</td>
+<td>元素级的求模运算</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-数学统计方法"><a href="#4-数学统计方法" class="headerlink" title="4.数学统计方法"></a>4.数学统计方法</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sum</td>
+<td>求和</td>
+</tr>
+<tr>
+<td>mean</td>
+<td>算术平均数。零长度的数组为NaN</td>
+</tr>
+<tr>
+<td>std、var</td>
+<td>分别为标准差和方差</td>
+</tr>
+<tr>
+<td>min，max</td>
+<td>最小值和最大值</td>
+</tr>
+<tr>
+<td>cumsum</td>
+<td>所有元素的累积和</td>
+</tr>
+<tr>
+<td>cumprod</td>
+<td>所有元素的累积积</td>
+</tr>
+<tr>
+<td>argmin、argmax</td>
+<td>分别计算最小值和最大值的索引</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-线性函数的常用方法"><a href="#5-线性函数的常用方法" class="headerlink" title="5.线性函数的常用方法"></a>5.线性函数的常用方法</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dot</td>
+<td>矩阵乘法</td>
+</tr>
+<tr>
+<td>trace</td>
+<td>计算对角线元素的和</td>
+</tr>
+<tr>
+<td>det</td>
+<td>计算矩阵行列式</td>
+</tr>
+<tr>
+<td>inv</td>
+<td>计算方阵的逆</td>
+</tr>
+<tr>
+<td>pinv</td>
+<td>计算矩阵的逆</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-实例"><a href="#6-实例" class="headerlink" title="6.实例"></a>6.实例</h3><blockquote>
+<p>>&gt;&gt; import numpy as np     <strong><em>调用numpy库</em></strong><br>>&gt;&gt; a = np.array([1,2,3])    <strong><em>创建数组，且大小固定，不可变</em></strong><br>>&gt;&gt; a<br>array([1, 2, 3])<br>>&gt;&gt; a.dtype    <strong><em>查看新建的ndarray属于哪种数据类型</em></strong><br>dtype(‘int32’)<br>>&gt;&gt; a.ndim    <strong><em>数组的维统称为轴，得出轴数量（秩）</em></strong><br>1<br>>&gt;&gt; a.size     <strong><em>数组的长度</em></strong><br>3<br>>&gt;&gt; a.shape   <strong><em>数组的型</em></strong><br>(3,)<br>>&gt;&gt; b = np.array([[1,2,3],[2,3,4]])  <strong><em>创建二维数组</em></strong><br>>&gt;&gt; b<br>array([[1, 2, 3],<br>       [2, 3, 4]])<br>>&gt;&gt; c = np.array(((1,2,4),(4,5,6)))<br>>&gt;&gt; c<br>array([[1, 2, 4],<br>       [4, 5, 6]])<br>>&gt;&gt; d = np.array([(1,2,3),[4,5,6],(7,8,9)])<br>>&gt;&gt; d<br>array([[1, 2, 3],<br>       [4, 5, 6],<br>       [7, 8, 9]])<br>>&gt;&gt; f = np.array([(1,2,3),[4,5,6],(7,8,9)],dtype = complex)   <strong><em>complex为复数类型</em></strong><br>>&gt;&gt; f<br>array([[ 1.+0.j,  2.+0.j,  3.+0.j],<br>       [ 4.+0.j,  5.+0.j,  6.+0.j],<br>       [ 7.+0.j,  8.+0.j,  9.+0.j]])<br>>&gt;&gt; np.zeros((3,3))   <strong><em>生成全0的数组</em></strong><br>array([[ 0.,  0.,  0.],<br>     [ 0.,  0.,  0.],<br>     [ 0.,  0.,  0.]])<br>>&gt;&gt; np.ones((3,3))    <strong><em>生成全1的数组</em></strong><br>array([[ 1.,  1.,  1.],<br>       [ 1.,  1.,  1.],<br>       [ 1.,  1.,  1.]])</p>
+<h4 id="empty-函数，随机生成数组，相当于未进行初始化的数组。不同平台调用会生成不同的结果。"><a href="#empty-函数，随机生成数组，相当于未进行初始化的数组。不同平台调用会生成不同的结果。" class="headerlink" title="empty()函数，随机生成数组，相当于未进行初始化的数组。不同平台调用会生成不同的结果。"></a>empty()函数，随机生成数组，相当于未进行初始化的数组。不同平台调用会生成不同的结果。</h4><p>(2,3,2)：2个3行2列的数组。<br>>&gt;&gt;np.empty((2,3,2))<br>>&gt;&gt; np.arange(0,10)   <strong><em>遍历输出</em></strong><br>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])<br>>&gt;&gt; np.arange(0,10,3)  <strong><em>类似于列表，不同的是列表的大小可以改变</em></strong><br>array([0, 3, 6, 9])<br>>&gt;&gt; np.arange(0,12).reshape(3,4) <strong><em>生成3行4列的数组</em></strong><br>array([[ 0,  1,  2,  3],<br>       [ 4,  5,  6,  7],<br>       [ 8,  9, 10, 11]])<br>>&gt;&gt; np.random.random((3,3))   <strong><em>产生随机数</em></strong><br>array([[ 0.24683936,  0.49185243,  0.30907375],<br>       [ 0.73396599,  0.56047708,  0.07133656],<br>       [ 0.46251468,  0.00697587,  0.9234071 ]])<br>>&gt;&gt; A = np.ones((3,3))<br>>&gt;&gt; A<br>array([[ 1.,  1.,  1.],<br>       [ 1.,  1.,  1.],<br>       [ 1.,  1.,  1.]])<br>>&gt;&gt; B = np.arange(0,9).reshape(3,3)<br>>&gt;&gt; B<br>array([[0, 1, 2],<br>       [3, 4, 5],<br>       [6, 7, 8]])<br>>&gt;&gt; np.dot(A,B)   <strong><em>dot表示两个数组的矩阵积</em></strong><br>array([[  9.,  12.,  15.],<br>       [  9.,  12.,  15.],<br>       [  9.,  12.,  15.]])<br>>&gt;&gt; A.dot(B)   <strong><em>矩阵积的第二种表示形式</em></strong><br>array([[  9.,  12.,  15.],<br>       [  9.,  12.,  15.],<br>       [  9.,  12.,  15.]])</p>
+<h4 id="数学运算"><a href="#数学运算" class="headerlink" title="数学运算"></a>数学运算</h4><p>>&gt;&gt; g = np.arange(4)<br>>&gt;&gt; g<br>array([0, 1, 2, 3])<br>>&gt;&gt; g += 1<br>>&gt;&gt; g<br>array([1, 2, 3, 4])<br>>&gt;&gt; g -= 2<br>>&gt;&gt; g<br>array([-1,  0,  1,  2])<br>>&gt;&gt; h = np.arange(1,5)<br>>&gt;&gt; h<br>array([1, 2, 3, 4])<br>>&gt;&gt; np.sqrt(h) <strong><em>开平方</em></strong><br>array([ 1.        ,  1.41421356,  1.73205081,  2.        ])<br>>&gt;&gt; np.sin(h)<br>array([ 0.84147098,  0.90929743,  0.14112001, -0.7568025 ])<br>>&gt;&gt; np.log(h)<br>array([ 0.        ,  0.69314718,  1.09861229,  1.38629436])<br>>&gt;&gt; k = np.array([3,4,5,6,7])<br>>&gt;&gt; k.sum()  <strong><em>求和</em></strong><br>25<br>>&gt;&gt; k.min()  <strong><em>最小值</em></strong><br>3<br>>&gt;&gt; k.max()  <strong><em>最大值</em></strong><br>7<br>>&gt;&gt; k.mean() <strong><em>平均值</em></strong><br>5.0<br>>&gt;&gt; k.std()  <strong><em>标准差</em></strong><br>1.4142135623730951<br>>&gt;&gt; l = np.arange(10,19).reshape((3,3))<br>>&gt;&gt; l<br>array([[10, 11, 12],<br>       [13, 14, 15],<br>       [16, 17, 18]])<br>>&gt;&gt; np.apply_along_axis(np.mean,axis = 0,arr = l)  <strong><em>遍历每个元素，求每一列的平均值</em></strong><br>array([ 13.,  14.,  15.])<br>>&gt;&gt; np.apply_along_axis(np.mean,axis = 1,arr = l)   <strong><em>求每一行的平均值</em></strong><br>array([ 11.,  14.,  17.])<br>>&gt;&gt; m = np.random.random((4,4))<br>>&gt;&gt; m<br>array([[ 0.08614139,  0.7518394 ,  0.45196265,  0.68611206],<br>       [ 0.62034675,  0.52529466,  0.72000524,  0.90689477],<br>       [ 0.19201244,  0.4555663 ,  0.16900424,  0.76753676],<br>       [ 0.17563723,  0.6348416 ,  0.38004357,  0.92354182]])<br>>&gt;&gt; b = np.random.random(12)<br>>&gt;&gt; b<br>array([ 0.56181788,  0.16499619,  0.6756252 , …,  0.33440496,<br>        0.75068239,  0.08420334])<br>>&gt;&gt; b.shape = (3,4)   <strong><em>把元组赋给数组shape的属性</em></strong><br>>&gt;&gt; b<br>array([[ 0.56181788,  0.16499619,  0.6756252 ,  0.37539411],<br>       [ 0.53771165,  0.96114175,  0.58014551,  0.05676748],<br>       [ 0.31388188,  0.33440496,  0.75068239,  0.08420334]])<br>>&gt;&gt; b.ravel()         <strong><em>把二维数组变为一维数组</em></strong><br>array([ 0.56181788,  0.16499619,  0.6756252 , …,  0.33440496,<br>        0.75068239,  0.08420334])<br>>&gt;&gt; b.transpose()     <strong><em>行列转换</em></strong><br>array([[ 0.56181788,  0.53771165,  0.31388188],<br>       [ 0.16499619,  0.96114175,  0.33440496],<br>       [ 0.6756252 ,  0.58014551,  0.75068239],<br>       [ 0.37539411,  0.05676748,  0.08420334]])<br>>&gt;&gt; A = np.zeros((3,3))<br>>&gt;&gt; B = np.ones((3,3))<br>>&gt;&gt; np.vstack((A,B))    <strong><em>执行垂直入栈操作</em></strong><br>array([[ 0.,  0.,  0.],<br>       [ 0.,  0.,  0.],<br>       [ 0.,  0.,  0.],<br>       [ 1.,  1.,  1.],<br>       [ 1.,  1.,  1.],<br>       [ 1.,  1.,  1.]])<br>>&gt;&gt; np.hstack((A,B))   <strong><em>执行水平入栈操作</em></strong><br>array([[ 0.,  0.,  0.,  1.,  1.,  1.],<br>       [ 0.,  0.,  0.,  1.,  1.,  1.],<br>       [ 0.,  0.,  0.,  1.,  1.,  1.]])</p>
+<h4 id="用于多个数组之间的栈操作"><a href="#用于多个数组之间的栈操作" class="headerlink" title="用于多个数组之间的栈操作"></a>用于多个数组之间的栈操作</h4><p>>&gt;&gt; d = np.array([1,2,3])<br>>&gt;&gt; e = np.array([4,5,6])<br>>&gt;&gt; f = np.array([7,8,9])<br>>&gt;&gt; np.column_stack((d,e,f))   <strong><em>把一维数组作为列压入栈</em></strong><br>array([[1, 4, 7],<br>       [2, 5, 8],<br>       [3, 6, 9]])<br>>&gt;&gt; np.row_stack((d,e,f))   <strong><em>把一维数组作为行压入栈</em></strong><br>array([[1, 2, 3],<br>       [4, 5, 6],<br>       [7, 8, 9]])<br>>&gt;&gt; C = np.arange(16).reshape((4,4))<br>>&gt;&gt; C<br>array([[ 0,  1,  2,  3],<br>       [ 4,  5,  6,  7],<br>       [ 8,  9, 10, 11],<br>       [12, 13, 14, 15]])<br>>&gt;&gt; [D,E] = np.hsplit (C,2)   <strong><em>将数组水平切分</em></strong><br>>&gt;&gt; D<br>array([[ 0,  1],<br>       [ 4,  5],<br>       [ 8,  9],<br>       [12, 13]])<br>>&gt;&gt; E<br>array([[ 2,  3],<br>       [ 6,  7],<br>       [10, 11],<br>       [14, 15]])<br>>&gt;&gt; [D,E] = np.vsplit (C,2)   <strong><em>将数组垂直切分</em></strong><br>>&gt;&gt; D<br>array([[0, 1, 2, 3],<br>       [4, 5, 6, 7]])<br>>&gt;&gt; E<br>array([[ 8,  9, 10, 11],<br>       [12, 13, 14, 15]])</p>
+<h4 id="Numpy中，所有赋值运算不会为数组和数组中的任何元素创建副本。把数组a赋给数组b，b只是a的另外一种调用方式。"><a href="#Numpy中，所有赋值运算不会为数组和数组中的任何元素创建副本。把数组a赋给数组b，b只是a的另外一种调用方式。" class="headerlink" title="Numpy中，所有赋值运算不会为数组和数组中的任何元素创建副本。把数组a赋给数组b，b只是a的另外一种调用方式。"></a>Numpy中，所有赋值运算不会为数组和数组中的任何元素创建副本。把数组a赋给数组b，b只是a的另外一种调用方式。</h4><p>>&gt;&gt; import numpy as np<br>>&gt;&gt; a = np.array([1,2,3,4])<br>>&gt;&gt; b = a<br>>&gt;&gt; b<br>array([1, 2, 3, 4])<br>>&gt;&gt; a[2] = 5<br>>&gt;&gt; b<br>array([1, 2, 5, 4])<br>>&gt;&gt; a<br>array([1, 2, 5, 4])</p>
+<h4 id="利用copy-函数可以生成一份完整的副本，得到一个不同的数组。"><a href="#利用copy-函数可以生成一份完整的副本，得到一个不同的数组。" class="headerlink" title="利用copy()函数可以生成一份完整的副本，得到一个不同的数组。"></a>利用copy()函数可以生成一份完整的副本，得到一个不同的数组。</h4><p>>&gt;&gt; d = a.copy()<br>>&gt;&gt; d<br>array([0, 2, 5, 4])<br>>&gt;&gt; a[2] = 3<br>>&gt;&gt; a<br>array([0, 2, 3, 4])<br>>&gt;&gt; d<br>array([0, 2, 5, 4])</p>
+<h4 id="数组切片操作返回的对象只是原数组的视图。"><a href="#数组切片操作返回的对象只是原数组的视图。" class="headerlink" title="数组切片操作返回的对象只是原数组的视图。"></a>数组切片操作返回的对象只是原数组的视图。</h4><p>>&gt;&gt; l = np.arange(10,19).reshape((3,3))<br>>&gt;&gt; l<br>array([[10, 11, 12],<br>       [13, 14, 15],<br>       [16, 17, 18]])<br>>&gt;&gt; l[2,2]   <strong><em>表示第3行3列的元素，从0开始</em></strong><br>18<br>>&gt;&gt; l[1,2]<br>15<br>>&gt;&gt; l[0,:]   <strong><em>第0行的元素</em></strong><br>array([10, 11, 12])<br>>&gt;&gt; l[:,0]   <strong><em>第0列的元素</em></strong><br>array([10, 13, 16])<br>>&gt;&gt; l[0:2,0:2]     <strong><em>截取前两行前两列的元素</em></strong><br>array([[10, 11],<br>       [13, 14]])<br>>&gt;&gt; l[[0,2],0:2]   <strong><em>截取前两列中第0行、第2行的元素</em></strong><br>array([[10, 11],<br>       [16, 17]])<br>>&gt;&gt; c = a[0:2]<br>>&gt;&gt; c<br>array([1, 2])<br>>&gt;&gt; a[0] = 0<br>>&gt;&gt; c<br>array([0, 2])<br>>&gt;&gt; d = np.array([[1,2,3],[4,5,6],[7,8,9]])<br>>&gt;&gt; d<br>array([[1, 2, 3],<br>       [4, 5, 6],<br>       [7, 8, 9]])</p>
+<h4 id="切片：一个逗号表示一个维度。-2表示数组的前两行-0-1行-，1：数组的1列到最后一列。"><a href="#切片：一个逗号表示一个维度。-2表示数组的前两行-0-1行-，1：数组的1列到最后一列。" class="headerlink" title="切片：一个逗号表示一个维度。:2表示数组的前两行(0,1行)，1：数组的1列到最后一列。"></a>切片：一个逗号表示一个维度。:2表示数组的前两行(0,1行)，1：数组的1列到最后一列。</h4><p>>&gt;&gt; d[:2,1:]<br>array([[2, 3],<br>       [5, 6]])<br>>&gt;&gt; d[:2]<br>array([[1, 2, 3],<br>       [4, 5, 6]])</p>
+<h4 id="可以利用切片为数组赋值。"><a href="#可以利用切片为数组赋值。" class="headerlink" title="可以利用切片为数组赋值。"></a>可以利用切片为数组赋值。</h4><p>>&gt;&gt; d[1:,2:] = 0<br>>&gt;&gt; d<br>array([[1, 2, 3],<br>       [4, 5, 0],<br>       [7, 8, 0]])</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢阅读-------------</div>
+    
+</div>
+
+        
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/numpy/" rel="tag"><i class="fa fa-tag"></i> numpy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/26/hexo搭建博客/" rel="next" title="hexo搭建博客">
+                <i class="fa fa-chevron-left"></i> hexo搭建博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/author.jpg"
+                alt="zhangyanyue" />
+            
+              <p class="site-author-name" itemprop="name">zhangyanyue</p>
+              <p class="site-description motion-element" itemprop="description">学习笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-numpy中的基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">1.numpy中的基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用于操作单个数组的常用函数"><span class="nav-number">2.</span> <span class="nav-text">2.用于操作单个数组的常用函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-用于操作两个或多个数组的方法"><span class="nav-number">3.</span> <span class="nav-text">3.用于操作两个或多个数组的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-数学统计方法"><span class="nav-number">4.</span> <span class="nav-text">4.数学统计方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-线性函数的常用方法"><span class="nav-number">5.</span> <span class="nav-text">5.线性函数的常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-实例"><span class="nav-number">6.</span> <span class="nav-text">6.实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#empty-函数，随机生成数组，相当于未进行初始化的数组。不同平台调用会生成不同的结果。"><span class="nav-number">6.1.</span> <span class="nav-text">empty()函数，随机生成数组，相当于未进行初始化的数组。不同平台调用会生成不同的结果。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数学运算"><span class="nav-number">6.2.</span> <span class="nav-text">数学运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用于多个数组之间的栈操作"><span class="nav-number">6.3.</span> <span class="nav-text">用于多个数组之间的栈操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Numpy中，所有赋值运算不会为数组和数组中的任何元素创建副本。把数组a赋给数组b，b只是a的另外一种调用方式。"><span class="nav-number">6.4.</span> <span class="nav-text">Numpy中，所有赋值运算不会为数组和数组中的任何元素创建副本。把数组a赋给数组b，b只是a的另外一种调用方式。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用copy-函数可以生成一份完整的副本，得到一个不同的数组。"><span class="nav-number">6.5.</span> <span class="nav-text">利用copy()函数可以生成一份完整的副本，得到一个不同的数组。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组切片操作返回的对象只是原数组的视图。"><span class="nav-number">6.6.</span> <span class="nav-text">数组切片操作返回的对象只是原数组的视图。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切片：一个逗号表示一个维度。-2表示数组的前两行-0-1行-，1：数组的1列到最后一列。"><span class="nav-number">6.7.</span> <span class="nav-text">切片：一个逗号表示一个维度。:2表示数组的前两行(0,1行)，1：数组的1列到最后一列。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以利用切片为数组赋值。"><span class="nav-number">6.8.</span> <span class="nav-text">可以利用切片为数组赋值。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhangyanyue</span>
+
+  
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+-->
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
