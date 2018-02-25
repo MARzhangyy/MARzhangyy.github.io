@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-02-20T03:00:33.668Z</updated>
+  <updated>2018-02-25T08:30:22.442Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pandas</title>
+    <link href="http://yoursite.com/2018/02/20/pandas/"/>
+    <id>http://yoursite.com/2018/02/20/pandas/</id>
+    <published>2018-02-20T03:34:18.000Z</published>
+    <updated>2018-02-25T08:30:22.442Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-Series对象"><a href="#1-Series对象" class="headerlink" title="1. Series对象"></a>1. Series对象</h2><font face="黑体" size="4">Series对象用来表示一维数组结构，跟数组类似，但多了一些额外的功能。</font><p>(1) 调用Series()构造函数，把要存放在Series对象中的数据以<font color="#0099ff">数组</font>形式传入。</p><blockquote><p>import pandas as pd<br>import numpy as np<br>a = pd.Series([1,2,3,4])</p></blockquote><p>(2) 输出结果左侧<strong><em>index</em></strong>是一列标签，右侧是标签对应的元素<strong><em>values</em></strong><br>(3) 选择内部元素，可以使用元素对应的标签，把标签放到数组中。</p><blockquote><p>a[[‘0’,’1’]]</p></blockquote><p>(4) 用Numpy数组或其他Series对象定义新Series对象</p><blockquote><p>b = np.array([1,2,3])<br>a1 = pd.Series(b)</p></blockquote><p>(5)  <font color="#0099ff">unique()</font>函数可弄清Series对象包含多少个不同的元素，其结果返回一个包含Series去重后的元素; <font color="#00FF00">value_counts()</font>函数返回各个不同的元素，计算每个元素在Series中出现的次数。</p><blockquote><p>a.unique()<br>a.value_counts()</p></blockquote><p>(6)  <font color="#0099ff">isin()</font>函数判断给定的元素是否包含在数据结构之中，isin()函数返回<strong>布尔值</strong>。</p><blockquote><p>a.isin([1])</p></blockquote><p>(7)  <font color="#0099ff">NaN</font>(Not a Number,非数值)，创建数据结构时，可为数组中元素缺失的项输入np.NaN；<font color="#0000CD">isnull()</font>和 <font color="#0000CD">notnull()</font>函数用来识别没有对应元素的索引时非常好用,作为筛选函数。<br>(8) 可以用事先定义好的字典来创建Series对象。索引数组为字典的键。可以单独指定索引，若遇缺失值，pandas就会为其添加NaN。<br>(9) Series对象之间的运算，只对<font color="#0099ff">标签相同</font>的元素运算，其余的也被添加到新对象中，它们的值均为NaN。</p><h2 id="2-DataFrame对象"><a href="#2-DataFrame对象" class="headerlink" title="2.DataFrame对象"></a>2.DataFrame对象</h2> <font face="黑体" size="4">DataFrame对象可以理解为一个由Series组成的字典。DataFrame对象有两个索引数组，第一个数组与行相关，与Series对象的索引数组相似，第二个数组和列相关，每一列的名称为字典的键。DataFrame对象用columns选项指定需要的列，也可指定列名称的顺序。在未指明索引的情况下，Series对象和DataFrame对象，都会自动添加一列从0开始的数值作为索引，用标签作为索引，则把标签放到数组中，赋给index选项。</font><p>(1) 定义DataFrame对象<br>传递一个dict对象给DataFrame()构造函数，dict对象以每一列的名称作为键，每个键都有一个数组作为值。</p><blockquote><p>import pandas as pd<br>data = {‘color’:[‘blue’,’yellow’,’green’],<br>        ‘price’:[3,4,5]}<br>frame = pd.DataFrame(data)</p></blockquote><p>抛开dict对象，定义一个构造函数，参数顺序：数据矩阵、index选项和columns选项 。</p><blockquote><p>frame1 = pd.DataFrame(np.arange(16).reshape((4,4)),<br>                        index = [‘red’,’blue’,’yellow’,’green’],<br>                        columns = [‘pen’,’pencil’,’ruler’,’box’])</p></blockquote><p>(2) 选取元素<br>调用columns属性可知DataFrame对象所有列的名称，调用index属性可知DataFrame对象所有行的名称，调用values属性可获取存储在数据结构中的元素。</p><blockquote><p>frame = pd.DataFrame(data)<br>print(frame.columns)<br>print(frame.index)<br>print(frame.values)</p></blockquote><p>把 <font color="#0099ff">一列的名称作为索引</font>可选择这一列的内容</p><blockquote><p>frame[‘price’]</p></blockquote><p>或 <font color="#0000CD">用列名称作为DataFrame实例的属性</font>，也可选择这一列的内容</p><blockquote><p>frame.price</p></blockquote><p>还可通过指定 <font color="#1E90FF">索引范围(切片)</font>来选取</p><blockquote><p>frame[0:2]</p></blockquote><p>依次指定元素所在的列名称、行的索引值或标签，可获取存储在DataFrame中的一个元素。</p><blockquote><p>frame[‘color’][‘2’]</p></blockquote><p>(3) 赋值<br>可用 <font color="#1E90FF">name属性</font>为二级结构columns属性和index属性指定标签。</p><blockquote><p>frame.index.name = ‘id’;frame.columns.name = ‘item’</p></blockquote><p>指定DataFrame实例新列的名称，为其赋值可添加列。</p><blockquote><p>frame[‘new’] = 10</p></blockquote><p>若更新一列的内容，需要把一个数组赋给这一列。给某一列的其中几个索引所对应的值赋新值，没有被赋新值的元素会填充为NaN。</p><blockquote><p>frame[‘price’] = [4,5,6]</p></blockquote><p>(4) 元素所属关系<br>isin()函数判断一组元素是否属于Series对象，同样适用DataFrame对象。</p><p>(5) 删除一列<br>使用del命令，可以删除一整列的所有数据。</p><blockquote><p>del frame[‘new’]</p></blockquote><p>(6) 筛选</p><blockquote><p>frame[frame &lt; 12]<br>返回的对象包含所有小于12的数字，不符合条件的替换为NaN。</p></blockquote><p>(7) DataFrame转置<br>调用T属性就能得到DataFrame对象的转置形式。</p><blockquote><p>frame.T</p></blockquote><h2 id="3-index对象"><a href="#3-index对象" class="headerlink" title="3.index对象"></a>3.index对象</h2><p>(1) index对象的方法<br>idxmin()和idxmax()函数分别返回索引值最小和最大的元素。</p><blockquote><p>frame.idxmin()<br>frame.idxmax()</p></blockquote><p>运用is_unique属性，可判断数据结构中是否存在重复的索引项，返回bool值。</p><blockquote><p>frame.index.is_unique</p></blockquote><p>(2) 更换索引<br>数据结构一旦声明，index对象就不能改变，但pandas的<font color="#1E90FF">reindex()</font>函数可更换Series对象的索引，根据新标签序列，重新调整原Series对象元素，生成一个新的Series对象。更换索引时，可以调整索引序列中各标签的顺序，删除或增加标签，增加新标签，pandas会增加NaN作为其元素。</p><blockquote><p>frame.reindex([‘one’,’two’,’three’,’four’])</p></blockquote><p>当索引列缺失值时，常见的需求为插值，以得到一个完整的序列，方法是用<font color="#0099ff">reindex()</font>函数，method选项值可为ffill或bfill。当为ffill时，对于新插入的索引项，其元素为前面索引编号比它小的那一项的元素，当为bfill时，是新插入索引后面的元素。</p><blockquote><p>frame.reindex([‘one’,’two’,’three’,’four’],method = ‘ffill’)</p></blockquote><p>(3) 删除<br>删除操作drop()函数，将想删除的标签作为drop()函数的参数，删除多项时，传入一个由多标签组成的数组。在Series对象中操作。</p><blockquote><p>ser = pd.Series(np.arange(3),index = [‘red’,’blue’,’yellow’])<br>ser.drop(‘red’)</p></blockquote><p>要删除DataFrame对象中的元素，需要指定元素两个轴的轴标签，传入行的索引可以删除行。要删除列，需要指定列的索引，还需用axis选项指定从哪个轴删除元素，按列的方向删除，axis的值为1。</p><blockquote><p>frame.drop([‘blue’,’yellow’])<br>frame.drop([‘pen’,’pencil’],axis = 1)</p></blockquote><p>(4) 算术和数据对齐<br>DataFrame对象之间的运算，行和列都要执行对齐操作。例:有两个DataFrame对象，frame1和frame2</p><blockquote><p>frame1 + frame2</p></blockquote><p>也可写为frame1.add(frame2)—–算术运算方法</p><p>(5) 按行或按列执行操作的函数<br>用<font color="#0099ff">apply()</font>函数可以在DataFrame对象上使用自定义的函数，可返回Series对象或DataFrame对象。</p><p>(6) 统计函数<br>数组的大多数统计函数对DataFrame对象依旧有效，deccribe()函数能够计算多个统计量。</p><blockquote><p>frame.deccribe()</p></blockquote><p>(7) 排序<br>对于Series对象，pandas的sort_index()函数可按照索引的升序排列的顺序对标签进行排序，若按照降序排列，只需将sort_index()函数的参数设为sort_index(ascending=False)。</p><blockquote><p>ser.sort_index()<br>ser.sort_index(ascending=False)</p></blockquote><p>对于DataFrame对象，可分别对两条轴中的任意一条进行排序。对索引进行排序，sort_index()函数可以解决，若按列进行排序，只需将sort_index()函数的参数设定为sort_index(axis = 1)。</p><blockquote><p>frame.sort_index()<br>frame.sort_index(axis = 1)</p></blockquote><p><strong>以上为对索引进行排序，下面为对数据元素进行排序。</strong><br>对Series对象排序，使用sort_values()函数，对DataFrame对象排序，使用sort_values()函数，参数需要用by选项指定根据哪一列进行排序。</p><blockquote><p>ser.sort_values()<br>frame.sort_values(by = ‘pen’)</p></blockquote><p>sort_values()对多列进行排序，把这些列的名称放到数组中，赋给参数by。</p><blockquote><p>frame.sort_values(by = [‘pen’,’pencil’])</p></blockquote><p>(8) 相关性和协方差<br>相关性和协方差是非常重要的两个统计量，函数分别为corr()和cov()。涉及两个Series对象，单个DataFrame对象。</p><h2 id="4-NaN数据"><a href="#4-NaN数据" class="headerlink" title="4.NaN数据"></a>4.NaN数据</h2><p>(1) 为元素赋NaN值<br>运用numpy的np.NaN(或np.nan)即可。</p><p>(2) 过滤NaN<br>对于Series对象，dropna()函数可以删除所有的NaN值，另一种方法是用notnull()函数作为选取元素的条件，直接实现过滤。</p><blockquote><p>ser.dropna()<br>ser[ser.notnull()]</p></blockquote><p>DataFrame对象若用dropna()方法，只要行或列有一个NaN元素，该行或该列的元素都会被删除。可使用how选项，指定其值为all，只删除所有元素均为NaN的行或列。</p><blockquote><p>frame.dropna(how = ‘all’)</p></blockquote><p>(3) 为NaN元素填充其他值<br>将所有NaN值替换为同一个元素，fillna()函数。将不同列的NaN替换为不同的元素，依次指定列名称及要替换成的元素即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1-Series对象&quot;&gt;&lt;a href=&quot;#1-Series对象&quot; class=&quot;headerlink&quot; title=&quot;1. Series对象&quot;&gt;&lt;/a&gt;1. Series对象&lt;/h2&gt;&lt;font face=&quot;黑体&quot; size=&quot;4&quot;&gt;Series对象用来表示一维
+      
+    
+    </summary>
+    
+      <category term="pandas" scheme="http://yoursite.com/categories/pandas/"/>
+    
+    
+      <category term="pandas" scheme="http://yoursite.com/tags/pandas/"/>
+    
+  </entry>
   
   <entry>
     <title>numpy</title>
